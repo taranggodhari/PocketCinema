@@ -41,31 +41,39 @@ public class MainActivity extends AppCompatActivity {
 //        final DatabaseHelper db = new DatabaseHelper(this);
     }
 
-    // OnClick Method When User Clicks "Buy your Ticket"
+    // OnClick Method When User Clicks "Login Button"
     public void GoNext(View v) {
         // Creating intent and setting this and next activity
         switch (v.getId()) {
             case R.id.login:
+                //Get intent obj
                 intent = new Intent(MainActivity.this, MainActivity.class);
-
+                // Username and password of user
                 userName = (EditText) findViewById(R.id.editTextUsername);
                 password = (EditText) findViewById(R.id.editTextPassword);
+                //Radiobutton to get UserROles
                 RadioGroup roleGroup = (RadioGroup) findViewById(R.id.roleGroup);
                 int checkedRoleRadio = roleGroup.getCheckedRadioButtonId();
                 RadioButton rb = (RadioButton) findViewById(checkedRoleRadio);
-                switch (rb.getText().toString()) {
-                    case "Admin":
-                        tableName = "tbl_admin";
-                        break;
-                    case "Audience":
-                        tableName = "tbl_audience";
-                        break;
-                }
+                //Getting userRole
+                String userRole = rb.getText().toString();
+                tableName ="tb_" + userRole.toLowerCase();
+
                 if (db.checkUser(userName.getText().toString(), password.getText().toString(), tableName)) {
                     SharedPreferences mySharedPreference = getSharedPreferences("MySharedPreferences", 0);
                     SharedPreferences.Editor prefEditor = mySharedPreference.edit();
                     prefEditor.putString("userName", userName.getText().toString());
+                    prefEditor.putString("userRole", userRole);
                     prefEditor.commit();
+//                    switch (userRole) {
+//                        case "Admin":
+//                            tableName = "tbl_admin";
+//                            break;
+//                        case "Audience":
+//                            tableName = "tbl_audience";
+//                            break;
+//                    }
+
                     intent = new Intent(MainActivity.this, WelcomeActivity.class);
                     startActivity(intent);
                 } else {

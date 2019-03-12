@@ -23,7 +23,7 @@ public class WelcomeActivity extends AppCompatActivity {
     TextView userNameText;
     DatabaseHelper db;
     Intent intent;
-
+String userName, userRole;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +32,11 @@ public class WelcomeActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         // Retrieving from shared preferences
         SharedPreferences mySharedPreferences = getSharedPreferences("MySharedPreferences", MODE_PRIVATE);
-        String username = mySharedPreferences.getString("userName", "");
-
+        userName = mySharedPreferences.getString("userName", "");
+        userRole = mySharedPreferences.getString("userRole", "");
         //Display welcome message with respective username
         userNameText = (TextView) findViewById(R.id.userNameText);
-        userNameText.setText("Welcome " + username + " !");
+        userNameText.setText("Welcome " + userName + " !");
 
 
         // Find the ScrollView

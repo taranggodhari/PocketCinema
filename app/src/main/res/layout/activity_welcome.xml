@@ -26,7 +26,7 @@
         android:background="@color/colorSecondaryDark" />
 
     <TextView
-        android:id="@+id/userNameText2"
+        android:id="@+id/textViewSelector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Movie"

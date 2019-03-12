@@ -27,7 +27,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null);
 
     }
-//Base onCreate method to initialize the sql Tables
+
+    //Base onCreate method to initialize the sql Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
         //
@@ -41,7 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sqlMovies);
         db.execSQL(sqlBooking);
     }
-//Drop existing tables and call onCreate to upgrade the database
+
+    //Drop existing tables and call onCreate to upgrade the database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sqlAudience = "DROP TABLE IF EXISTS tbl_audience";
@@ -69,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(tableName, null, values);
         db.close(); //close database connection
     }
+
     //Adding booking details
     long addBookingRecord(String tableName, String fields[], String record[], int foreignRecord[]) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -78,10 +81,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for (int i = 3; i < record.length; i++)
             values.put(fields[i], record[i]);
         // Insert the row
-        long id  = db.insert(tableName, null, values);
+        long id = db.insert(tableName, null, values);
         db.close(); //close database connection
         return id;
     }
+
     // Read booking details by booking id
     public Cursor getBookingDetails(int bookingId) {
         // Select required records
@@ -92,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
+
     // Read all records
     public List getTable(String tableName) {
         List table = new ArrayList(); //to store all rows
@@ -149,6 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
+
     //Get the row of movie using the movieId
     public Cursor getMovieById(int movieId) {
         // Select all records
@@ -160,11 +166,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Update a record
-    public int updateRecord(ContentValues values, String tableName, String fields[], String record[]) {
+    public int updateRecord(String tableName, String fields[], String record[]) {
         SQLiteDatabase db = this.getWritableDatabase();
-
+        ContentValues values = new ContentValues();
         for (int i = 1; i < record.length; i++)
-            values.put(fields[i], record[i]);
+
+                values.put(fields[i], record[i]);
 
         // updating row with given id = record[0]
         return db.update(tableName, values, fields[0] + " = ?",
@@ -182,22 +189,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Read the audienceId using userName
     public String getAudienceId(String userName) {
         // Select all records
-        String selectQuery = "SELECT  * FROM tbl_audience WHERE userName = '" + userName +"';";
+        String selectQuery = "SELECT  * FROM tbl_audience WHERE userName = '" + userName + "';";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
-                return cursor.getString(cursor.getColumnIndex("audienceId"));
+            return cursor.getString(cursor.getColumnIndex("audienceId"));
         }
 
         // return table as a list
         return "0";
     }
+
     //Get the row of movie using the user
     public Cursor getUserByUserName(String userName) {
         // Select all records
-        String selectQuery = "SELECT  * FROM tbl_audience WHERE userName = " + userName + ";";
+        String selectQuery = "SELECT  * FROM tbl_audience WHERE userName = '" + userName + "';";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -233,6 +241,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+
     //Seed the movie database
     public void SeedMovies() {
         //create an array of table fields
@@ -274,8 +283,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //run the addRecord method to create the movie
         this.addRecord("tbl_movies", fields, record);
     }
+
     public void SeedAdmin() {
-        final String fields[] = {"employeeId", "userName", "password", "firstName","lastName"};
+        final String fields[] = {"employeeId", "userName", "password", "firstName", "lastName"};
         final String record[] = new String[5];
         record[1] = "admin";
         record[2] = "password";
@@ -288,6 +298,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         record[4] = "Doe";
         this.addRecord("tbl_admin", fields, record);
     }
+
     //     This method to check user exist or not
     public boolean checkAdmin(String userName) {
         SQLiteDatabase db = this.getReadableDatabase();

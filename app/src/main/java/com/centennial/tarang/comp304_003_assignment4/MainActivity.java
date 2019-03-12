@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 RadioButton rb = (RadioButton) findViewById(checkedRoleRadio);
                 //Getting userRole
                 String userRole = rb.getText().toString();
-                tableName ="tb_" + userRole.toLowerCase();
+                tableName ="tbl_" + userRole.toLowerCase();
 
                 if (db.checkUser(userName.getText().toString(), password.getText().toString(), tableName)) {
                     SharedPreferences mySharedPreference = getSharedPreferences("MySharedPreferences", 0);

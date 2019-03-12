@@ -1,0 +1,14 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="button_margin_top">50dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="title_font">14pt</dimen>
+    <dimen name="img_height">400px</dimen>
+    <dimen name="img_width">600px</dimen>
+    <dimen name="icon_width">180px</dimen>
+    <dimen name="icon_height">180px</dimen>
+
+</resources>

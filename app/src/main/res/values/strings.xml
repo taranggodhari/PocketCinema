@@ -11,6 +11,7 @@
     <string name="txt_genre">Genre</string>
     <string name="txt_update">Update</string>
     <string name="txt_users_list">Users List</string>
+    <string name="txt_tickets_list">Tickets List</string>
     <string name="option_update_profile">Update Profile</string>
     <string name="glass">Glass</string>
     <string name="glass_director">Security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities.</string>
@@ -22,6 +23,9 @@
     <string name="replicas_description">A scientist becomes obsessed with bringing back his family members who died in a traffic accident.</string>
     <string name="the_mule">The Mule</string>
     <string name="the_mule_description">A 90-year-old horticulturist and Korean War veteran is caught transporting $3 million worth of cocaine through Illinois for a Mexican drug cartel.</string>
+
+    <string name="confirm">Confirm Ticket</string>
+    <string name="cancel">Cancel Ticket</string>
 
     <string name="time1">12:50 PM</string>
     <string name="time2">02:15 PM</string>

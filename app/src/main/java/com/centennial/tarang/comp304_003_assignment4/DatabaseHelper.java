@@ -85,7 +85,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close(); //close database connection
         return id;
     }
-
+    //Adding booking details
+    long updateBookingRecord(String tableName, String fields[], String record[], int foreignRecord[]) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        for (int i = 1; i < foreignRecord.length; i++)
+            values.put(fields[i], foreignRecord[i]);
+        for (int i = 3; i < record.length; i++)
+            values.put(fields[i], record[i]);
+        // Insert the row
+       long id =  db.update(tableName, values, fields[0] + " = ?",
+                new String[]{Integer.toString(foreignRecord[0])});
+        db.close(); //close database connection
+        return id;
+    }
     // Read booking details by booking id
     public Cursor getBookingDetails(int bookingId) {
         // Select required records
@@ -96,7 +109,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
+    // Read all records
+    public List getBookingList() {
+        List table = new ArrayList(); //to store all rows
+        // Select all records
+        String selectQuery = "SELECT  * FROM tbl_booking;";
+        //get the readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+        //run the raw query and return the cursor
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        ArrayList row = new ArrayList(); //to store one row
+        //scroll over rows and store each row in an array list object
+        if (cursor.moveToFirst()) {
+            do { // for each row
+                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                    row.add(cursor.getString(i));
+                    if(row.size() ==  8){
+                        table.add(row); //add row to the list
+                        row = new ArrayList();
+                    }
+                }
 
+                // table.add(row); //add row to the list
+
+            } while (cursor.moveToNext());
+        }
+
+        // return table as a list
+        return table;
+    }
     // Read all records
     public List getTable(String tableName) {
         List table = new ArrayList(); //to store all rows

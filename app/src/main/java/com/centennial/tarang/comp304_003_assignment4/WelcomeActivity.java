@@ -28,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
     Intent intent;
     String userName, userRole;
     private Menu menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +47,12 @@ public class WelcomeActivity extends AppCompatActivity {
             //For userRole == "Admin"
             // Find the ScrollView
             ScrollView movieScrollView = (ScrollView) findViewById(R.id.movieScrollView);
+            LinearLayout.LayoutParams paramsScrollView = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            movieScrollView.setBackgroundResource(R.color.colorSecondaryDark);
+            movieScrollView.setLayoutParams(paramsScrollView);
             textViewSelector.setVisibility(View.GONE);
+            View view2 = (View) findViewById(R.id.view2);
+            view2.setVisibility(View.GONE);
             LinearLayout linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.setGravity(Gravity.CENTER);
@@ -179,6 +185,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         }
     };
+
     //Method to handle the back button pressed
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
@@ -186,18 +193,28 @@ public class WelcomeActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.option, menu);
         return true;
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Check which option menu item is selected using switch case
-        switch (item.getItemId()) {
-            case R.id.item1:
-                //get Reference of next activity(ProfileActivity)
-                Intent intent = new Intent(WelcomeActivity.this, ProfileActivity.class);
-                //start the activity
-                startActivity(intent);
-                break;
-            case android.R.id.home:
-                //handle back button press event
-                finish();
+        if (userRole.equals("Audience")) {
+            switch (item.getItemId()) {
+                case R.id.item1:
+
+                    //get Reference of next activity(ProfileActivity)
+                    Intent intent = new Intent(WelcomeActivity.this, ProfileActivity.class);
+                    //start the activity
+                    startActivity(intent);
+                    break;
+                case android.R.id.home:
+                    //handle back button press event
+                    finish();
+            }
+        } else {
+            switch (item.getItemId()) {
+                case android.R.id.home:
+                    //handle back button press event
+                    finish();
+            }
         }
         return super.onOptionsItemSelected(item);
     }

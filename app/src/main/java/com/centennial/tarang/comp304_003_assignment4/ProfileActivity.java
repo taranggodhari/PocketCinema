@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         db = new DatabaseHelper(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SharedPreferences mySharedPreferences = getSharedPreferences("MySharedPreferences", MODE_PRIVATE);
         String username = mySharedPreferences.getString("userName", "");
         Cursor cursor = db.getUserByUserName(username);
@@ -112,6 +114,14 @@ public class ProfileActivity extends AppCompatActivity {
         //if all values are valid return true else false
         return isValid;
     }
-
+    //Method to handle the back button pressed
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
 

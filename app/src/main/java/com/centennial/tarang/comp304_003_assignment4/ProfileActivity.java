@@ -1,5 +1,7 @@
 package com.centennial.tarang.comp304_003_assignment4;
 
+//Author: Vrunda Shah(300900997), Tarang Godhari (300931365)
+//COMP304_003Assignment4_ProfileActivity
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -27,9 +29,12 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         db = new DatabaseHelper(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         SharedPreferences mySharedPreferences = getSharedPreferences("MySharedPreferences", MODE_PRIVATE);
         String username = mySharedPreferences.getString("userName", "");
         Cursor cursor = db.getUserByUserName(username);
+
+        //Fetch data for signedin audience
         if (cursor.moveToFirst()) {
             audienceId = cursor.getString(0);
             email = cursor.getString(1);
@@ -41,6 +46,8 @@ public class ProfileActivity extends AppCompatActivity {
             city = cursor.getString(7);
             postalCode = cursor.getString(8);
         }
+
+        //pass value of each field to textbox in edit mode
         editTextUserName = (EditText) findViewById(R.id.editTextUserName);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
@@ -49,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         editTextCity = (EditText) findViewById(R.id.editTextCity);
         editTextPostalCode = (EditText) findViewById(R.id.editTextPostalCode);
 
+        //Update field for signedin audience
         editTextUserName.setText(userName);
         editTextEmail.setText(email);
         editTextFirstName.setText(firstName);
@@ -58,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
         editTextPostalCode.setText(postalCode);
     }
 
+    //Update event for ProfileAcivity
     public void OnUpdate(View v) {
         final String fields[] = {"audienceId", "email", "userName", "password", "firstName", "lastName", "address", "city", "postalCode"};
         final String record[] = new String[9];
@@ -71,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
             record[6] = editTextAddress.getText().toString();
             record[7] = editTextCity.getText().toString();
             record[8] = editTextPostalCode.getText().toString();
+
             //populate the row with some values
             db.updateRecord("tbl_audience",fields,record);
             if (db.checkUser(userName)) {

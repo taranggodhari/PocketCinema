@@ -1,5 +1,7 @@
 package com.centennial.tarang.comp304_003_assignment4;
 
+//Author: Vrunda Shah(300900997), Tarang Godhari (300931365)
+//COMP304_003Assignment4_TicketBookedActivity
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -20,7 +22,7 @@ public class TicketBookedActivity extends AppCompatActivity {
     DatabaseHelper db;
     String bookingId,audienceId, movieId;
     String movieName, userName,bookingStatus;
-//    paymentDate, amountPaid, showDate,showTime, bookingStatus;
+    //paymentDate, amountPaid, showDate,showTime, bookingStatus;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,10 @@ public class TicketBookedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ticket_booked);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         db = new DatabaseHelper(this);
+
         // Find the ScrollView
         ScrollView bookedTicketScrollView = (ScrollView) findViewById(R.id.bookedTicketScrollView);
+
         //Add Linear Layout
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
@@ -39,16 +43,17 @@ public class TicketBookedActivity extends AppCompatActivity {
         linearLayout.setLayoutParams(paramsLinearLayout);
         linearLayout.setGravity(Gravity.CENTER);
 
+        //List bookedTickets for each user
         List bookedTickets = db.getBookingList();
         for (int i = 0; i < bookedTickets.size(); i++) {
             List ticket = (List) bookedTickets.get(i);
             bookingId = ticket.get(0).toString();
             audienceId = ticket.get(1).toString();
             movieId = ticket.get(2).toString();
-//            paymentDate = user.get(3).toString();
-//            amountPaid = user.get(4).toString();
-//            showDate = user.get(5).toString();
-//            showTime = user.get(6).toString();
+            //paymentDate = user.get(3).toString();
+            //amountPaid = user.get(4).toString();
+            //showDate = user.get(5).toString();
+            //showTime = user.get(6).toString();
             bookingStatus = ticket.get(7).toString();
             Cursor cursor = db.getUserById(Integer.parseInt(audienceId));
             if (cursor.moveToFirst()) {
@@ -59,6 +64,7 @@ public class TicketBookedActivity extends AppCompatActivity {
                 movieName = cursor.getString(1);
             }
 
+            //Add LinearLayout
             LinearLayout linearLayoutIn = new LinearLayout(this);
             linearLayoutIn.setOrientation(LinearLayout.VERTICAL);
             linearLayoutIn.setGravity(Gravity.CENTER);
@@ -66,6 +72,7 @@ public class TicketBookedActivity extends AppCompatActivity {
             linearLayoutIn.setLayoutParams(paramsLinearLayout);
             linearLayoutIn.setGravity(Gravity.CENTER);
 
+            //Add Textview and fetch username for selected user
             TextView textViewUserName = new TextView(this);
             textViewUserName.setTextSize(18);
             textViewUserName.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -73,6 +80,7 @@ public class TicketBookedActivity extends AppCompatActivity {
             textViewUserName.setText(userName);
             textViewUserName.setBackgroundResource(R.color.colorPrimaryDark);
 
+            //Add button representing bookingStatus with colorcode
             Button buttonTicket = new Button(this);
             buttonTicket.setId(Integer.parseInt(ticket.get(0).toString()));
             buttonTicket.setLayoutParams(paramsLinearLayout);

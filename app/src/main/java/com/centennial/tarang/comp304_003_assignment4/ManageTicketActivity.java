@@ -1,5 +1,7 @@
 package com.centennial.tarang.comp304_003_assignment4;
 
+//Author: Vrunda Shah(300900997), Tarang Godhari (300931365)
+//COMP304_003Assignment4_ManageTicketActivity
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -50,6 +52,8 @@ public class ManageTicketActivity extends AppCompatActivity {
         if (cursor.moveToFirst()) {
             movieName = cursor.getString(1);
         }
+
+        //fetch each textvalue for booked ticket for respective audience
         movieNameTextView = (TextView) findViewById(R.id.textViewMovieName);
         userNameTextView = (TextView) findViewById(R.id.textViewUserName);
         showTimeTextView = (TextView) findViewById(R.id.textViewShowTime);
@@ -64,6 +68,8 @@ public class ManageTicketActivity extends AppCompatActivity {
         showDateTextView.setText(showDate);
         amountPaidTextView.setText(amountPaid);
         paymentDateTextView.setText(paymentDate);
+
+        //Check bookingStatus
         if (bookingStatus.equals("Confirmed")) {
             cancelRadio.setChecked(false);
             confirmRadio.setChecked(true);
@@ -74,6 +80,7 @@ public class ManageTicketActivity extends AppCompatActivity {
 
     }
 
+    //Upadte ticket by updating bookingStatus
     public void UpdateTicket(View v) {
         final String fields[] = {"bookingId", "audienceId", "movieId", "paymentDate", "amountPaid", "showDate", "showTime", "bookingStatus"};
         final String record[] = new String[8];
@@ -97,6 +104,7 @@ public class ManageTicketActivity extends AppCompatActivity {
         record[5] = showDate;
         record[6] = showTime;
         record[7] = bookingStatus;
+
         //populate the row with some values
         db.updateBookingRecord("tbl_booking", fields, record, foreignRecord);
         Toast.makeText(this, "Ticket Updated", Toast.LENGTH_SHORT).show();

@@ -1,5 +1,6 @@
 package com.centennial.tarang.comp304_003_assignment4;
-
+//Author: Vrunda Shah(300900997), Tarang Godhari (300931365)
+//COMP304_003Assignment4_CheckoutActivity
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class CheckoutActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
+        //fetch required fields for checkout
         movieNameTextView = (TextView) findViewById(R.id.movieName);
         showTimeTextView = (TextView) findViewById(R.id.showTime);
         showDateTextView = (TextView) findViewById(R.id.showDate);

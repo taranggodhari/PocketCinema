@@ -1,5 +1,7 @@
 package com.centennial.tarang.comp304_003_assignment4;
 
+//Author: Vrunda Shah(300900997), Tarang Godhari (300931365)
+//COMP304_003Assignment4_UserDetailActivity
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -22,6 +24,7 @@ public class UserDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //get data for SignedIn user and update fields that user want to modify
         SharedPreferences mySharedPreferences = getSharedPreferences("MySharedPreferences", MODE_PRIVATE);
         userId = mySharedPreferences.getString("userId", "");
         db = new DatabaseHelper(this);
@@ -45,6 +48,7 @@ public class UserDetailActivity extends AppCompatActivity {
         textViewCity = (TextView) findViewById(R.id.textViewCity);
         textViewPostalCode = (TextView) findViewById(R.id.textViewPostalCode);
 
+        //Update user data
         textViewUserName.setText(userName);
         textViewEmail.setText(email);
         textViewFirstName.setText(firstName);
@@ -54,13 +58,17 @@ public class UserDetailActivity extends AppCompatActivity {
         textViewPostalCode.setText(postalCode);
 
     }
-    public void DeleteUser(View v){
-        db.deleteRecord("tbl_audience","audienceId",userId);
-        if(!db.checkUser(userName)){
+
+    //Admin can delete a user
+    public void DeleteUser(View v) {
+        db.deleteRecord("tbl_audience", "audienceId", userId);
+        if (!db.checkUser(userName)) {
             intent = new Intent(UserDetailActivity.this, UsersActivity.class);
             startActivity(intent);
         }
     }
+
+    //Return to previous activity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

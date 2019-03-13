@@ -1,5 +1,7 @@
 package com.centennial.tarang.comp304_003_assignment4;
 
+//Author: Vrunda Shah(300900997), Tarang Godhari (300931365)
+//COMP304_003Assignment4_UsersActivity
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -40,6 +42,7 @@ public class UsersActivity extends AppCompatActivity {
         linearLayout.setLayoutParams(paramsLinearLayout);
         linearLayout.setGravity(Gravity.CENTER);
 
+        //get users from DatabaseHelper
         List users = db.getUsersList();
         for (int i = 0; i < users.size(); i++) {
             List user = (List) users.get(i);

@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         final String fields[] = {"audienceId", "email", "userName", "password", "firstName", "lastName", "address", "city", "postalCode"};
         final String record[] = new String[9];
+
         // Handle Save button
         btnRegister = (Button) findViewById(R.id.button_sign_up);
         //Get all the Edit texts form items from View
@@ -41,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         address = (EditText) findViewById(R.id.editTextAddress);
         city = (EditText) findViewById(R.id.editTextCity);
         postalCode = (EditText) findViewById(R.id.editTextPostalCode);
+
         //Pass entered values to database
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

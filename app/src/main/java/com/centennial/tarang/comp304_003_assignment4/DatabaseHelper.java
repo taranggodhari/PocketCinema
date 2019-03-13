@@ -211,7 +211,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
+    //Get the row of movie using the user
+    public Cursor getUserById(int userId) {
+        // Select all records
+        String selectQuery = "SELECT  * FROM tbl_audience WHERE audienceId = " + userId + ";";
 
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
+    // Read all records
+    public List getUsersList() {
+        List table = new ArrayList(); //to store all rows
+        // Select all records
+        String selectQuery = "SELECT  * FROM tbl_audience;";
+        //get the readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+        //run the raw query and return the cursor
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        ArrayList row = new ArrayList(); //to store one row
+        //scroll over rows and store each row in an array list object
+        if (cursor.moveToFirst()) {
+            do { // for each row
+                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                    row.add(cursor.getString(i));
+                    if(row.size() ==  9){
+                        table.add(row); //add row to the list
+                        row = new ArrayList();
+                    }
+                }
+
+               // table.add(row); //add row to the list
+
+            } while (cursor.moveToNext());
+        }
+
+        // return table as a list
+        return table;
+    }
     // This method to check user exist or not
     public boolean checkUser(String userName) {
         SQLiteDatabase db = this.getReadableDatabase();

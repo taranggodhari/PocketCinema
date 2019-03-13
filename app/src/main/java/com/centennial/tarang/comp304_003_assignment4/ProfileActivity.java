@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
-    EditText editTextFirstName, editTextLastName, editTextAddress, editTextCity, editTextPostalCode;
+    EditText editTextUserName,editTextEmail,editTextFirstName, editTextLastName, editTextAddress, editTextCity, editTextPostalCode;
 
     String audienceId,email, userName, password, firstName, lastName, address, city, postalCode;
     DatabaseHelper db;
@@ -39,12 +39,16 @@ public class ProfileActivity extends AppCompatActivity {
             city = cursor.getString(7);
             postalCode = cursor.getString(8);
         }
+        editTextUserName = (EditText) findViewById(R.id.editTextUserName);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
         editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
         editTextCity = (EditText) findViewById(R.id.editTextCity);
         editTextPostalCode = (EditText) findViewById(R.id.editTextPostalCode);
 
+        editTextUserName.setText(userName);
+        editTextEmail.setText(email);
         editTextFirstName.setText(firstName);
         editTextLastName.setText(lastName);
         editTextAddress.setText(address);

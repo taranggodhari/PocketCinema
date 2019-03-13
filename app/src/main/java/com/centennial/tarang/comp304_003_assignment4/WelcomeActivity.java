@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,9 +42,43 @@ public class WelcomeActivity extends AppCompatActivity {
         userNameText = (TextView) findViewById(R.id.userNameText);
         userNameText.setText("Welcome " + userName + " !");
         TextView textViewSelector = (TextView) findViewById(R.id.textViewSelector);
-        if (userRole == "Admin") {
+        if (userRole.equals("Admin")) {
             //For userRole == "Admin"
-            textViewSelector.setText("");
+            // Find the ScrollView
+            ScrollView movieScrollView = (ScrollView) findViewById(R.id.movieScrollView);
+            textViewSelector.setVisibility(View.GONE);
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayout.setGravity(Gravity.CENTER);
+            linearLayout.setBackgroundResource(R.color.colorPrimaryDark);
+            LinearLayout.LayoutParams paramsLinearLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            linearLayout.setLayoutParams(paramsLinearLayout);
+            linearLayout.setGravity(Gravity.CENTER);
+            //View Registration button
+//            LinearLayout.LayoutParams paramsButton = new LinearLayout.LayoutParams(250, 250);
+            Button buttonRegistration = new Button(this);
+            buttonRegistration.setLayoutParams(paramsLinearLayout);
+            buttonRegistration.setText("View Registered Users");
+            buttonRegistration.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    intent = new Intent(WelcomeActivity.this, UsersActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            //View Bookings button
+            Button buttonBooking = new Button(this);
+            buttonBooking.setLayoutParams(paramsLinearLayout);
+            buttonBooking.setText("View Booked Tickets");
+            buttonBooking.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    intent = new Intent(WelcomeActivity.this, TicketBookedActivity.class);
+                    startActivity(intent);
+                }
+            });
+            linearLayout.addView(buttonRegistration);
+            linearLayout.addView(buttonBooking);
+            movieScrollView.addView(linearLayout);
         } else {
             //For userRole == "Audience"
             // Find the ScrollView
@@ -56,6 +91,7 @@ public class WelcomeActivity extends AppCompatActivity {
             LinearLayout.LayoutParams paramsLinearLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             linearLayout.setLayoutParams(paramsLinearLayout);
             linearLayout.setGravity(Gravity.CENTER);
+
 
             List movies = db.getMovieNameList("tbl_movies");
             for (Object movie : movies) {
